@@ -11,11 +11,11 @@ VOLUMES = []
 
 # Dictionary of tags to use to filter the volumes. May specify multiple
 # eg. {'key': 'value'} or {'key1': 'value1', 'key2': 'value2', ...}
-VOLUME_TAGS = {}
+VOLUME_TAGS = {'Name': 'jenkins-master-volume-1tb'}
 
 # Dictionary of tags to apply to the created snapshots.
 # eg. {'key': 'value'} or {'key1': 'value1', 'key2': 'value2', ...}
-SNAPSHOT_TAGS = {}
+SNAPSHOT_TAGS = {'Name': 'jenkins-master-1tb-backup'}
 
 # AWS region in which the volumes exist
 REGION = "us-east-1"
@@ -24,8 +24,8 @@ REGION = "us-east-1"
 def take_snapshots(volume, tags_kwargs):
     if NOOP is False:
         snapshot = volume.create_snapshot(
-                   Description='Created with ec2-take-snapshots'
-                   )
+            Description='jenkins-master volume snapshot'
+        )
         if tags_kwargs:
             snapshot.create_tags(**tags_kwargs)
     else:
